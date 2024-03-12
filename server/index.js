@@ -16,7 +16,7 @@ io.on('connection', (socket) => {
   })
 
   socket.on('chat message', (msg) => {
-    console.log('message ' + msg)
+    io.emit('chat message', msg) // <-- Corrected to 'chat message'
   })
 })
 
@@ -27,5 +27,5 @@ app.get('/', (req, res) => {
 })
 
 server.listen(port, () => {
-  console.log('Server runnig')
+  console.log('Server running')
 })
