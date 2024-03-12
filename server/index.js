@@ -6,7 +6,9 @@ import { createServer } from 'node:http'
 const app = express()
 const port = process.env.PORT ?? 3000
 const server = createServer(app)
-const io = new Server(server)
+const io = new Server(server, {
+  connectionStateRecovery: {}
+})
 
 io.on('connection', (socket) => {
   console.log('a user has connected')
