@@ -2,6 +2,17 @@ import express from 'express'
 import logger from 'morgan'
 import { Server } from 'socket.io'
 import { createServer } from 'node:http'
+import { createClient } from '@libsql/client/.'
+import dotenv from 'dotenv'
+
+dotenv.config()
+
+const db = createClient({
+  url: 'libsql://awake-cybergirl-daviddrequeno.turso.io',
+  authToken: process.env.DB_TOKEN
+})
+
+await db.execute()
 
 const app = express()
 const port = process.env.PORT ?? 3000
@@ -18,7 +29,7 @@ io.on('connection', (socket) => {
   })
 
   socket.on('chat message', (msg) => {
-    io.emit('chat message', msg) // <-- Corrected to 'chat message'
+    io.emit('chat message', msg)
   })
 })
 
